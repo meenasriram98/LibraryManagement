@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MiniProject.Library.Copy>
+
+@{
+    ViewBag.Title = "Copy Details";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+
+}
+
+<link href="~/assets/css/material-dashboard.css" rel="stylesheet" />
+<h2 style="color:greenyellow;margin-left:20px">Copy Detail</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table" style="margin-left:20px">
+    <tr>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.copy_id)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.ISBNNO)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.copy_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBNNO)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.copy_id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.copy_id }) |*@
+                @Html.ActionLink("Delete", "DeleteCopy", new { copy_id = item.copy_id }, new { @style = "color:greenyellow" })
+
+            </td>
+        </tr>
+    }
+    @{
+        if (TempData["CopiesAdded"] != null)
+        {
+            <h3 style="color:forestgreen">@TempData["CopiesAdded"]</h3>
+        }
+        if (TempData["error"] != null)
+        {
+            <h3 style="color:red">@TempData["error"]</h3>
+        }
+        if (TempData["CopyRemoved"] != null)
+        {
+            <h3 style="color:forestgreen">@TempData["CopyRemoved"]</h3>
+        }
+    }
+</table>

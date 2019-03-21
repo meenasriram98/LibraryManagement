@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MiniProject.Library.Borrow>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@{
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+<h2 style="color:greenyellow;margin-left:20px">Not Returned</h2>
+
+<link href="~/assets/css/material-dashboard.css" rel="stylesheet" />
+<table class="table" style="margin-left:20px">
+    <tr>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.Copy.ISBNNO)
+        </th>
+        <th style="color:greenyellow">
+            @*@Html.DisplayNameFor(model => model.Book.name)*@
+            Book Name
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.issue_date)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.return_date)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Copy.ISBNNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.issue_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.return_date)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="libManagementModelStoreContainer" CdmEntityContainer="BookEntities6">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="libManagementModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="books_borrowed" ColumnName="books_borrowed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="libManagementModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="libManagementModel.Book">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="ISBNNO" ColumnName="ISBNNO" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="auhtor_name" ColumnName="auhtor_name" />
+          <ScalarProperty Name="publisher" ColumnName="publisher" />
+          <ScalarProperty Name="copies" ColumnName="copies" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Borrows">
+      <EntityTypeMapping TypeName="libManagementModel.Borrow">
+        <MappingFragment StoreEntitySet="Borrow">
+          <ScalarProperty Name="borrow_id" ColumnName="borrow_id" />
+          <ScalarProperty Name="ISBNNO" ColumnName="ISBNNO" />
+          <ScalarProperty Name="copy_id" ColumnName="copy_id" />
+          <ScalarProperty Name="borrow1" ColumnName="borrow" />
+          <ScalarProperty Name="block" ColumnName="block" />
+          <ScalarProperty Name="issue_date" ColumnName="issue_date" />
+          <ScalarProperty Name="return_date" ColumnName="return_date" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="fine" ColumnName="fine" />
+          <ScalarProperty Name="returned" ColumnName="returned" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="copies">
+      <EntityTypeMapping TypeName="libManagementModel.copy">
+        <MappingFragment StoreEntitySet="copies">
+          <ScalarProperty Name="copy_id" ColumnName="copy_id" />
+          <ScalarProperty Name="copy_available" ColumnName="copy_available" />
+          <ScalarProperty Name="ISBNNO" ColumnName="ISBNNO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="libManagementModel.Request">
+        <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="req_id" ColumnName="req_id" />
+          <ScalarProperty Name="book_name" ColumnName="book_name" />
+          <ScalarProperty Name="publisher" ColumnName="publisher" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="libManagementModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

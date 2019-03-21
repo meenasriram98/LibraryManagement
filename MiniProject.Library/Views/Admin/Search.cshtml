@@ -1,0 +1,156 @@
+﻿@model IEnumerable<MiniProject.Library.Book>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+@ViewBag.error
+<div style="margin-left:20px">
+    @using (Html.BeginForm("Search", "Admin", FormMethod.Post))
+    {
+
+        <div class="content">
+            <div class="container-fluid">
+                <input type="text" value="" @*id="auth"*@ class="form-control" name="author_name" placeholder="Author Search...">
+                <input type="text" value="" @*id="bname"*@ class="form-control" name="name" placeholder="Book Title Search...">
+                <input type="text" value="" @*id="publish"*@ class="form-control" name="publisher" placeholder="publisher Search...">
+                <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+
+            </div>
+        </div>
+    }
+    <table class="table">
+        <tr>
+            <th style="width:20vw;color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.name)*@
+                Name
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.department)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.subject)
+                </th>*@
+            <th style="width:5vw;color:greenyellow">
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th style="width:10vw;color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.author_name)*@
+                Author Name
+            </th>
+            <th style="width:12vw;color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.publisher)*@
+                Publisher
+            </th>
+            <th style="width:8vw;color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.copies)*@
+                Copies
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.books_date)
+                </th>*@
+            <th align="center" style="color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.YOP)*@
+                Year Of Publication
+            </th>
+            <th></th>
+        </tr>
+        @if (ViewBag.count == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    Enter AuthorName or BookTitle Or Publication to search
+                </td>
+            </tr>
+        }
+
+        else
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.department)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.subject)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.author_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.copies)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.books_date)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YOP)
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Add", "Add", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })|
+                        @Html.ActionLink("Details", "CopyDetail", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })|
+                        @Html.ActionLink("Edit", "EditBook", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })
+                    </td>
+                </tr>
+            }
+        }
+        <tr>
+            @{
+                var previous = Convert.ToInt32(ViewBag.page) - 1;
+                var next = Convert.ToInt32(ViewBag.page) + 1;
+            }
+            <td>
+                @using (Html.BeginForm("Search", "Admin", FormMethod.Post))
+                {
+                    @*<input type="hidden" id="check1" name="prevclicked" />
+                        <input type="hidden" value=@previous name="page" />
+                        <input type="submit" class="btn btn-primary" value="Previous" name="prev" onclick="return getAuthor()" />*@
+                    <input type="hidden" @*id="check1"*@ value=@previous name="page" />
+                    <input type="hidden" class="btn btn-primary" value="Previous" />
+                    <input type="submit" class="btn btn-primary" value="Previous" name="prev" @*onclick="return getAuthor()"*@ />
+
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("Search", "Admin", FormMethod.Post))
+                {
+
+                    @*<input type="hidden" id="check2" name="nextclicked" />
+                        <input type="hidden" value=@next name="page" />
+                        <input type="submit" class="btn btn-primary" value="Next" name="next" onclick="return getAuthor()" />*@
+                    <input type="hidden" @*id="check1"*@ value=@next name="page" />
+                    <input type="hidden" class="btn btn-primary" value="Next" />
+                    <input type="submit" class="btn btn-primary" value="Next" name="next" @*onclick="return getAuthor()"*@ />
+                }
+            </td>
+        </tr>
+    </table>
+    <script>
+        function getAuthor() {
+            document.getElementById("check1").value = document.getElementById("auth").value + "," + document.getElementById("bname").value + "," + document.getElementById("publish").value;
+            document.getElementById("check2").value = document.getElementById("auth").value + "," + document.getElementById("bname").value + "," + document.getElementById("publish").value;
+        }
+    </script>
+
+
+
+
+
+</div>

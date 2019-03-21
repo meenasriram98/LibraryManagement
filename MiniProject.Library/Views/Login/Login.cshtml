@@ -1,0 +1,22 @@
+﻿@{ 
+    Layout = null;
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/style1.css">
+</head>
+<body>
+    <form class="box" method="post" action="~/Login/Login">
+        <h1>Login</h1>
+        <input type="text" name="username" placeholder="username">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit" name="submit" value="Login">
+        @{
+            if (ViewBag.Error != null)
+            {
+                <h3 style="color:red">@ViewBag.Error</h3>
+            }
+        }
+    </form>
+</body>
+</html>

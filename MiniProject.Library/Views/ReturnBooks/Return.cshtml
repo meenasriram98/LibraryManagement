@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MiniProject.Library.Borrow>
+
+@{
+Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.issue_date)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.return_date)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.fine)
+        </th>*@
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.returned)
+        </th>
+        <th style="color:greenyellow">
+            @*@Html.DisplayNameFor(model => model.Book.name)*@
+            Book Name
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.Copy.ISBNNO)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.issue_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.return_date)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.fine)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.return_date)
+                
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Copy.ISBNNO)
+            </td>
+            <td>
+                @Html.ActionLink("Return", "ReturnAction", new { id = item.copy_id }, new { @style = "color:greenyellow" }) 
+            </td>
+        </tr>
+    }
+    @{
+        if (TempData["returned"] != null)
+        {
+            <h3 style="color:forestgreen">@TempData["returned"]</h3>
+        }
+    }
+
+</table>

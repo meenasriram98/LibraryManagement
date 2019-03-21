@@ -1,0 +1,119 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<MiniProject.Library.Book>
+
+@{
+    ViewBag.Title = "Display";
+    Layout = "UserHome1.cshtml";
+}
+
+<h2  style="color:greenyellow;margin-left:20px">Display</h2>
+
+
+<table class="table" style="margin-left:20px">
+    <tr>
+        <th style="color:greenyellow;width:10vw">
+            @*@Html.DisplayNameFor(model => model.First().ISBNNO)*@
+            ISBN
+        </th>
+        <th style="color:greenyellow;width:20vw">
+            @*@Html.DisplayNameFor(model => model.First().name)*@
+            Book Name
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().subject)
+            </th>*@
+        <th style="color:greenyellow;width:8vw">
+            @*@Html.DisplayNameFor(model => model.First().status)*@
+            Status
+        </th>
+        <th style="color:greenyellow;width:12vw">
+            @*@Html.DisplayNameFor(model => model.First().author_name)*@
+            Author Name
+        </th>
+        <th style="color:greenyellow;width:12vw">
+            @*@Html.DisplayNameFor(model => model.First().publisher)*@
+            Publisher
+        </th>
+        <th style="color:greenyellow">
+            @*@Html.DisplayNameFor(model => model.First().copies)*@
+            Copies
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBNNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.subject)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.author_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.copies)
+            </td>
+            <td>
+                @{
+                    if (item.status[0] == 97)
+                    {
+
+                        <p style="color:yellowgreen">
+                            Notify
+                        </p>
+                        @Html.ActionLink("Block", "BlockBook", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })
+                    }
+                    else
+                    {
+
+                        @Html.ActionLink("notify", "Notify", new { isbnno = item.ISBNNO }, new { @style = "color:greenyellow" })
+                        <p style="color:yellowgreen">
+                            Block
+                        </p>
+                    }
+                }
+            </td>
+
+        </tr>
+
+    }
+    @{
+        if (ViewBag.CannotBlock != null)
+        {
+            <h3 style="color:forestgreen">@ViewBag.CannotBlock</h3>
+        }
+        if (ViewBag.error != null)
+        {
+            <h3 style="color:red">@ViewBag.ErrorMessage</h3>
+        }
+        if (TempData["notify"] != null)
+        {
+            <h3 style="color:forestgreen">@TempData["notify"]</h3>
+        }
+        else if (TempData["DeleteError"] != null)
+        {
+            <h3 style="color:red">@TempData["DeleteError"]</h3>
+        }
+    }
+
+</table>
+@Html.PagedListPager(Model, pageNumber => Url.Action("Display", "Admin", new { pageNumber }))

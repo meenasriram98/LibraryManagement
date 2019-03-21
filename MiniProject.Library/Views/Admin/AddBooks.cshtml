@@ -1,0 +1,128 @@
+﻿@model MiniProject.Library.Book
+
+
+
+@{
+    ViewBag.Title = "AddBooks";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <div class="form-horizontal">
+        <h2 style="color:greenyellow;margin-left:20px">Add Book</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.ISBNNO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.ISBNNO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ISBNNO, "", new { @class = "text-danger", @style = "color:green" })
+            </div><a href="~/Borrow.cs">@*~/Borrow.cs*@</a>
+        </div>
+
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+           
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.YOP, htmlAttributes: new { @class = "control-label col-md-2" })
+             
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.YOP, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.YOP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.subject, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.subject, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.subject, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.author_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.author_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.author_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.publisher, htmlAttributes: new { @class = "control-label col-md-2" })
+            
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.publisher, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.publisher, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="color:greenyellow;margin-left:10px">
+            @Html.LabelFor(model => model.copies, htmlAttributes: new { @class = "control-label col-md-2" })
+          
+            <div class="col-md-10" style="margin-left:0px">
+                @Html.EditorFor(model => model.copies, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.copies, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @{
+            if (ViewBag.InvalidIsbn != null)
+            {
+                <h3 style="color:red">@ViewBag.error</h3>
+            }
+            else if (ViewBag.error != null)
+            {
+                <h3 style="color:red">@ViewBag.error</h3>
+            }
+            else if (ViewBag.success != null)
+            {
+                <h3 style="color:forestgreen">@ViewBag.success</h3>
+            }
+
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+﻿@model MiniProject.Library.user
+
+@{ 
+    Layout = "UserHome1.cshtml";
+}
+
+<div>
+    <h2 style="color:greenyellow;margin-left:20px">Profile</h2>
+    <hr />
+    <dl class="dl-horizontal" style="margin-left:20px">
+        <dt style="color:greenyellow">
+           @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt style="color:greenyellow">
+           @Html.DisplayNameFor(model => model.department)
+        </dt>
+
+        <dd>
+           @Html.DisplayFor(model => model.department)
+        </dd>
+
+        <dt style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.phone_number)
+
+        </dt>
+
+        <dd>
+           @Html.DisplayFor(model => model.phone_number)
+        </dd>
+
+        <dt style="color:greenyellow">
+           @Html.DisplayNameFor(model => model.Account.type)
+        </dt>
+
+        <dd>
+            @if (Model.Account.type == "S    ")
+            {
+                @:   Student
+            }
+            else
+            {
+                @:   Faculty
+            }
+        </dd>
+
+    </dl>
+</div>
+<p style="margin-left:20px">
+    @Html.ActionLink("Edit", "Edit", new { email = Model.email }, new { @style = "color:greenyellow" }) 
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>

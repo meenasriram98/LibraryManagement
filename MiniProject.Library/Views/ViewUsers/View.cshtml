@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MiniProject.Library.user>
+
+@{
+    ViewBag.Title = "ViewUsers";
+    //Layout = "UserHome1.cshtml";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+    ViewBag.Admin = "Admin";
+    ViewBag.Student = "Student";
+    ViewBag.Faculty = "Faculty";
+}
+<link href="~/assets/css/material-dashboard.css" rel="stylesheet" />
+
+<h2 style="color:greenyellow;margin-left:20px">View Users</h2>
+
+<p style="margin-left:20px">
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table" style="margin-left:20px">
+    <tr>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.department)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.phone_number)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.Account.type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone_number)
+        </td>
+        <td>
+            @if (item.Account.type == "A    ")
+            {
+
+             @:Admin
+
+            }
+            else if(item.Account.type=="S    ")
+            {
+                @:Student
+            }
+            else
+            {
+                @:Faculty
+            }
+
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.email }) |*@
+            @Html.ActionLink("Details", "Details", new { id=item.id }, new { @style = "color:greenyellow" }) 
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.email })*@
+        </td>
+    </tr>
+}
+
+</table>

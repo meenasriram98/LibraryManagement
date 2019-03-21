@@ -1,0 +1,42 @@
+﻿@model MiniProject.Library.Admin
+
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+<h2 style="color:greenyellow;margin-left:20px">User Profile</h2>
+
+<div style="margin-left:20px">
+    @*<h4>Admin</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.phone_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone_number)
+        </dd>
+
+        <dt style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.Account.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.type)
+        </dd>
+
+    </dl>
+</div>
+<p style="margin-left:20px">
+    @Html.ActionLink("Edit", "EditAdmin", new { id = Model.email }, new { @style = "color:greenyellow" }) 
+</p>

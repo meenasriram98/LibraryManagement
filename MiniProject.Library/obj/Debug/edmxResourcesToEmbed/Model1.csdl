@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="books_borrowed" Type="Int32" />
+    <Property Name="books_blocked" Type="Int32" />
+    <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__id__5BE2A6F2" FromRole="Account" ToRole="Admin" />
+    <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__user_id__367C1819" FromRole="Account" ToRole="Borrow" />
+    <NavigationProperty Name="users" Relationship="Self.FK__user__id__5812160E" FromRole="Account" ToRole="user" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Admin__id__5BE2A6F2" FromRole="Admin" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="ISBNNO" />
+    </Key>
+    <Property Name="ISBNNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="department" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+    <Property Name="author_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="publisher" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="copies" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__ISBNNO__3493CFA7" FromRole="Books" ToRole="Borrow" />
+    <NavigationProperty Name="Copies1" Relationship="Self.FK__Copies__ISBNNO__2DE6D218" FromRole="Books" ToRole="Copies" />
+    <Property Name="books_date" Type="DateTime" Precision="0" />
+    <Property Name="YOP" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Borrow">
+    <Key>
+      <PropertyRef Name="borrow_id" />
+    </Key>
+    <Property Name="borrow_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ISBNNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="copy_id" Type="Int32" />
+    <Property Name="borrow1" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="block" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="issue_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="return_date" Type="DateTime" Precision="0" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="fine" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="returned" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Borrow__user_id__367C1819" FromRole="Borrow" ToRole="Account" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__Borrow__ISBNNO__3493CFA7" FromRole="Borrow" ToRole="Books" />
+    <NavigationProperty Name="Copy" Relationship="Self.FK__Borrow__copy_id__3587F3E0" FromRole="Borrow" ToRole="Copies" />
+  </EntityType>
+  <EntityType Name="Copy">
+    <Key>
+      <PropertyRef Name="copy_id" />
+    </Key>
+    <Property Name="ISBNNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="copy_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="copies_available" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__Copies__ISBNNO__2DE6D218" FromRole="Copies" ToRole="Books" />
+    <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__copy_id__3587F3E0" FromRole="Copies" ToRole="Borrow" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="req_id" />
+    </Key>
+    <Property Name="req_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="book_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK__Request__email__5EBF139D" FromRole="Request" ToRole="user" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="department" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__user__id__5812160E" FromRole="user" ToRole="Account" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK__Request__email__5EBF139D" FromRole="user" ToRole="Request" />
+  </EntityType>
+  <Association Name="FK__Admin__id__5BE2A6F2">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__user_id__367C1819">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user__id__5812160E">
+    <End Role="Account" Type="Self.Account" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__ISBNNO__3493CFA7">
+    <End Role="Books" Type="Self.Book" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="ISBNNO" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="ISBNNO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Copies__ISBNNO__2DE6D218">
+    <End Role="Books" Type="Self.Book" Multiplicity="1" />
+    <End Role="Copies" Type="Self.Copy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="ISBNNO" />
+      </Principal>
+      <Dependent Role="Copies">
+        <PropertyRef Name="ISBNNO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__copy_id__3587F3E0">
+    <End Role="Copies" Type="Self.Copy" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Copies">
+        <PropertyRef Name="copy_id" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="copy_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__email__5EBF139D">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="email" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookEntities5" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Borrows" EntityType="Self.Borrow" />
+    <EntitySet Name="Copies" EntityType="Self.Copy" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK__Admin__id__5BE2A6F2" Association="Self.FK__Admin__id__5BE2A6F2">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Admin" EntitySet="Admins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__user_id__367C1819" Association="Self.FK__Borrow__user_id__367C1819">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Borrow" EntitySet="Borrows" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user__id__5812160E" Association="Self.FK__user__id__5812160E">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="user" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__ISBNNO__3493CFA7" Association="Self.FK__Borrow__ISBNNO__3493CFA7">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Borrow" EntitySet="Borrows" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Copies__ISBNNO__2DE6D218" Association="Self.FK__Copies__ISBNNO__2DE6D218">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Copies" EntitySet="Copies" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__copy_id__3587F3E0" Association="Self.FK__Borrow__copy_id__3587F3E0">
+      <End Role="Copies" EntitySet="Copies" />
+      <End Role="Borrow" EntitySet="Borrows" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__email__5EBF139D" Association="Self.FK__Request__email__5EBF139D">
+      <End Role="user" EntitySet="users" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <FunctionImport Name="spSearchBook" ReturnType="Collection(BookModel.spSearchBook_Result)">
+      <Parameter Name="author" Mode="In" Type="String" />
+      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="publication" Mode="In" Type="String" />
+      <Parameter Name="page" Mode="In" Type="Int32" />
+      <Parameter Name="size" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spSearchBookModel" EntitySet="Books" ReturnType="Collection(BookModel.Book)">
+      <Parameter Name="author" Mode="In" Type="String" />
+      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="publication" Mode="In" Type="String" />
+      <Parameter Name="page" Mode="In" Type="Int32" />
+      <Parameter Name="size" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="spSearchBook_Result">
+    <Property Type="Int64" Name="rownum" Nullable="true" />
+    <Property Type="String" Name="ISBNNO" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="department" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="publisher" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="author_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="subject" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="copies" Nullable="false" />
+    <Property Type="DateTime" Name="books_date" Nullable="true" />
+  </ComplexType>
+</Schema>

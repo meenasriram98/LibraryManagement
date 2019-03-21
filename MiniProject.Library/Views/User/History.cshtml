@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MiniProject.Library.Borrow>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "UserHome1.cshtml";
+}
+
+<h2  style="color:greenyellow;margin-left:20px">History</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table" style="margin-left:20px">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.borrow1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.block)
+        </th>*@
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.issue_date)
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.return_date)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.fine)
+        </th>*@
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.returned)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Account.type)
+        </th>*@
+        <th style="color:greenyellow">
+            @*@Html.DisplayNameFor(model => model.Book.name)*@
+            Book Name
+        </th>
+        <th style="color:greenyellow">
+            @Html.DisplayNameFor(model => model.Copy.ISBNNO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.borrow1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.block)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.issue_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.return_date)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.fine)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.returned)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Account.type)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Copy.ISBNNO)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.borrow_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.borrow_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.borrow_id })
+        </td>*@
+    </tr>
+}
+
+</table>

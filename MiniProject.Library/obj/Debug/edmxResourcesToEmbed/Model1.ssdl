@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="books_borrowed" Type="int" />
+    <Property Name="books_blocked" Type="int" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone_number" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="ISBNNO" />
+    </Key>
+    <Property Name="ISBNNO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="varchar(max)" />
+    <Property Name="author_name" Type="varchar(max)" />
+    <Property Name="publisher" Type="varchar(max)" />
+    <Property Name="copies" Type="int" Nullable="false" />
+    <Property Name="YOP" Type="int" />
+    <Property Name="department" Type="varchar(max)" />
+    <Property Name="subject" Type="varchar(max)" />
+    <Property Name="status" Type="char" MaxLength="100" />
+    <Property Name="books_date" Type="date" />
+  </EntityType>
+  <EntityType Name="Borrow">
+    <Key>
+      <PropertyRef Name="borrow_id" />
+    </Key>
+    <Property Name="borrow_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ISBNNO" Type="varchar" MaxLength="50" />
+    <Property Name="copy_id" Type="int" />
+    <Property Name="borrow" Type="char" MaxLength="5" />
+    <Property Name="block" Type="char" MaxLength="5" />
+    <Property Name="issue_date" Type="date" Nullable="false" />
+    <Property Name="return_date" Type="date" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="fine" Type="money" />
+    <Property Name="returned" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Copies">
+    <Key>
+      <PropertyRef Name="copy_id" />
+    </Key>
+    <Property Name="ISBNNO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="copy_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="copies_available" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="req_id" />
+    </Key>
+    <Property Name="req_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="book_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="publisher" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="author" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="department" Type="char" MaxLength="10" />
+    <Property Name="phone_number" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__Admin__id__5BE2A6F2">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__copy_id__3587F3E0">
+    <End Role="Copies" Type="Self.Copies" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Copies">
+        <PropertyRef Name="copy_id" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="copy_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__ISBNNO__3493CFA7">
+    <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="ISBNNO" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="ISBNNO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Borrow__user_id__367C1819">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Borrow">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Copies__ISBNNO__2DE6D218">
+    <End Role="Books" Type="Self.Books" Multiplicity="1" />
+    <End Role="Copies" Type="Self.Copies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="ISBNNO" />
+      </Principal>
+      <Dependent Role="Copies">
+        <PropertyRef Name="ISBNNO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__email__5EBF139D">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="email" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user__id__5812160E">
+    <End Role="Account" Type="Self.Account" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spSearchBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="author" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="publication" Type="varchar" Mode="In" />
+    <Parameter Name="page" Type="int" Mode="In" />
+    <Parameter Name="size" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="BookModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Copies" EntityType="Self.Copies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Admin__id__5BE2A6F2" Association="Self.FK__Admin__id__5BE2A6F2">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Admin" EntitySet="Admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__copy_id__3587F3E0" Association="Self.FK__Borrow__copy_id__3587F3E0">
+      <End Role="Copies" EntitySet="Copies" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__ISBNNO__3493CFA7" Association="Self.FK__Borrow__ISBNNO__3493CFA7">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Borrow__user_id__367C1819" Association="Self.FK__Borrow__user_id__367C1819">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Borrow" EntitySet="Borrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Copies__ISBNNO__2DE6D218" Association="Self.FK__Copies__ISBNNO__2DE6D218">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Copies" EntitySet="Copies" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__email__5EBF139D" Association="Self.FK__Request__email__5EBF139D">
+      <End Role="user" EntitySet="user" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user__id__5812160E" Association="Self.FK__user__id__5812160E">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

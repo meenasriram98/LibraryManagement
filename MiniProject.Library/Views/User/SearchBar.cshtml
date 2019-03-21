@@ -1,0 +1,101 @@
+﻿@*@model IEnumerable<MiniProject.Library.Book>
+
+@{
+    ViewBag.Title = "SearchBar";
+    Layout = "UserHome1.cshtml";
+}
+
+<h2>SearchBar</h2>
+
+<table class="table  table-hover " style="width:100%" ">
+    <thead class="black white-text">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().author_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="3"> Records not found </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.author_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @{
+                    if (item.status != "available           ")
+                    {
+                        @Html.ActionLink("notify", "Notify", new { isbnno = item.ISBNNO })
+                        @:Block
+                    }
+                    else
+                    {
+                        @:notify
+                        @Html.ActionLink("Block", "BlockBook", new { id = item.ISBNNO })
+                    }
+                }
+            </td>
+
+            <td></td>
+
+            @{
+                if (ViewBag.BlockError != null)
+                {
+                    <h3 style="color:red">@ViewBag.BlockError</h3>
+                }
+                else if (ViewBag.Message != null)
+                {
+                    <h3 style="color:red">@ViewBag.Message</h3>
+                }
+            }
+
+        </tr>
+
+        }
+
+
+
+    }
+
+
+</table>*@
+

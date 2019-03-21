@@ -1,0 +1,96 @@
+﻿@model IEnumerable<MiniProject.Library.Borrow>
+
+
+@{
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+
+}
+<link href="~/assets/css/material-dashboard.css" rel="stylesheet" /> 
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
+</head>
+<h2 style="color:greenyellow;margin-left:20px">User Details</h2>
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<body class="dark-edition">
+    <table class="table" style="margin-left:20px">
+        <tr>
+
+            <th style="color:greenyellow">
+                @Html.DisplayNameFor(model => model.issue_date)
+            </th>
+            <th style="color:greenyellow">
+                @Html.DisplayNameFor(model => model.return_date)
+            </th>
+
+            <th style="color:greenyellow">
+                @Html.DisplayNameFor(model => model.returned)
+            </th>
+            @*<th style="color:greenyellow">
+                @Html.DisplayNameFor(model => model.Account.type)
+            </th>*@
+            <th style="color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.Book.name)*@
+                Book Name
+            </th>
+            <th style="color:greenyellow">
+                @Html.DisplayNameFor(model => model.Copy.ISBNNO)
+            </th>
+            <th></th>
+        </tr>
+        @{ var flag = 0;}
+        @foreach (var item in Model)
+        {
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.issue_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.return_date)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.returned)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Account.type)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Copy.ISBNNO)
+                </td>
+
+            </tr>
+            if (flag == 0)
+            {
+            
+                @Html.ActionLink("View Not Returned Books", "NotReturned", new { id = item.user_id }, new { @style = "color:greenyellow;margin-left:20px" })
+                flag = 1;
+           
+               
+            }
+
+
+        }
+
+
+    </table>
+
+</body>

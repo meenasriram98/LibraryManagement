@@ -1,0 +1,160 @@
+﻿@model IEnumerable<MiniProject.Library.Book>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "UserHome1.cshtml";
+}
+
+
+
+<div style="margin-left:20px">
+    @using (Html.BeginForm("Search", "User", FormMethod.Post))
+    {
+
+        <div class="content">
+            <div class="container-fluid">
+                <input type="text" value="" class="form-control" name="author_name" placeholder="Author Search...">
+                <input type="text" value="" class="form-control" name="name" placeholder="Book Title Search...">
+                <input type="text" value="" class="form-control" name="publisher" placeholder="publisher Search...">
+                <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+
+            </div>
+        </div>
+    }
+    @{
+        if (TempData["CannotBlock"] != null)
+        {
+            <h3 style="color:red">@TempData["CannotBlock"]</h3>
+        }
+        if (ViewBag.Error != null)
+        {
+            <h3 style="color:red">@ViewBag.Error</h3>
+        }
+        if (TempData["BookBlocked"] != null)
+        {
+            <h3 style="color:red"> @TempData["BookBlocked"] </h3>
+        }
+        else if (ViewBag.Message != null)
+        {
+            <h3 style="color:forestgreen">@ViewBag.Message</h3>
+        }
+    }
+
+    <table class="table">
+        <tr>
+            <th style="color:greenyellow;width:25vw">
+                @*@Html.DisplayNameFor(model => model.name)*@
+                Book Name
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.department)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.subject)
+                </th>*@
+            <th style="color:greenyellow">
+                @*@Html.DisplayNameFor(model => model.status)*@
+                Status
+            </th>
+            <th style="color:greenyellow;width:12vw">
+                @*@Html.DisplayNameFor(model => model.author_name)*@
+                Author Name
+            </th>
+            <th style="color:greenyellow;width:12vw">
+                @*@Html.DisplayNameFor(model => model.publisher)*@
+                Publisher
+            </th>
+            <th style="color:greenyellow;width:6vw">
+                @*@Html.DisplayNameFor(model => model.copies)*@
+                Copies
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.books_date)
+                </th>*@
+            <th style="color:greenyellow;width:8vw">
+                @*@Html.DisplayNameFor(model => model.YOP)*@
+                Year Of Publication
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.subject)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.author_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.publisher)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.copies)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.books_date)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.YOP)
+                </td>
+                <td>
+
+                    @{
+                        if (item.status[0] == 97)
+                        {
+                            <p style="color:greenyellow">
+                                Notify
+                            </p>
+                            @Html.ActionLink("Block", "BlockBook", new { id = item.ISBNNO }, new { @style = "color:greenyellow" })
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("notify", "Notify", new { isbnno = item.ISBNNO }, new { @style = "color:greenyellow" })
+                            <p style="color:greenyellow">
+                                Block
+                            </p>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            @{
+                var previous = Convert.ToInt32(ViewBag.page) - 1;
+                var next = Convert.ToInt32(ViewBag.page) + 1;
+            }
+            <td>
+                @using (Html.BeginForm("Search", "User", FormMethod.Post))
+                {
+                    <input type="hidden" value=@previous name="page" />
+                    <input type="submit" class="btn btn-primary" value="Previous" />
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("Search", "User", FormMethod.Post))
+                {
+                    <input type="hidden" value=@next name="page" />
+                    <input type="submit" class="btn btn-primary" value="Next" />
+                }
+            </td>
+        </tr>
+
+    </table>
+
+
+
+</div>

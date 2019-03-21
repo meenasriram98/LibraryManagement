@@ -1,0 +1,79 @@
+﻿@model IEnumerable<MiniProject.Library.Book>
+
+@{
+    ViewBag.Title = "NewlyAddedBooks";
+    Layout = "~/Views/Admin/_AdminHomePage.cshtml";
+}
+
+@{ 
+    if (Convert.ToString(Session["role"]) != "admin")
+    {
+        Response.End();
+    }
+}
+
+
+
+<html>
+<body>
+    <center>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">New Books Avaliable</h4>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                <th>ISBNNO</th>
+                                <th>Name</th>
+                                @*<th>Department</th>
+                                <th>subject</th>*@
+                                <th>Status</th>
+                                <th>Author Name</th>
+                                <th>Publisher</th>
+
+                                </th>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ISBNNO)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.name)
+                                            </td>
+                                            @*<td>
+                                                @Html.DisplayFor(modelItem => item.department)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.subject)
+                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.status)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.author_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.publisher)
+                                            </td>
+
+
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+</body>
+</html>
